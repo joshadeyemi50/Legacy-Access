@@ -1,76 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Legacy Access | Golden Jubilee & Legacy Celebration</title>
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #4B0082, #ffffff);
-    text-align: center;
-    color: #4B0082;
-}
-.container {
-    max-width: 600px;
-    margin: 60px auto;
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-h1 {
-    color: #D4AF37;
-    margin-bottom: 10px;
-}
-h2 {
-    margin-top: 0;
-    font-weight: normal;
-}
-.button {
-    display: block;
-    margin: 20px auto;
-    padding: 15px 25px;
-    width: 80%;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: 0.3s ease;
-}
-.event { background: #4B0082; color: white; }
-.selar { background: #D4AF37; color: white; }
-.amazon { background: #000000; color: white; }
-.button:hover { opacity: 0.85; }
-footer {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #777;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legacy Access | Golden Jubilee & Legacy Celebration</title>
+
+  <style>
+    :root{
+      --purple:#4B0082;
+      --purple2:#6A0DAD;
+      --gold:#D4AF37;
+      --white:#ffffff;
+      --ink:#1b1026;
+      --card: rgba(255,255,255,.92);
+      --shadow: 0 18px 50px rgba(0,0,0,.22);
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      color: var(--ink);
+      text-align:center;
+
+      /* Background image + overlay (works even if bg.jpg is missing) */
+      background:
+        linear-gradient(135deg, rgba(75,0,130,.88), rgba(255,255,255,.92)),
+        url("assets/bg.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+      padding: 48px 16px;
+      overflow-x:hidden;
+    }
+
+    /* subtle animated sparkle */
+    .sparkle{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(212,175,55,.25) 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 30%, rgba(212,175,55,.18) 0 2px, transparent 3px),
+        radial-gradient(circle at 30% 70%, rgba(212,175,55,.20) 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 80%, rgba(212,175,55,.16) 0 2px, transparent 3px);
+      background-size: 260px 260px;
+      animation: drift 18s linear infinite;
+      opacity:.7;
+    }
+    @keyframes drift{
+      from{ transform: translate3d(0,0,0); }
+      to{ transform: translate3d(-260px, -260px, 0); }
+    }
+
+    .container{
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 28px 22px;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+
+      /* subtle entrance animation */
+      animation: popIn .6s ease-out both;
+    }
+
+    @keyframes popIn{
+      from{ opacity:0; transform: translateY(14px) scale(.98); }
+      to{ opacity:1; transform: translateY(0) scale(1); }
+    }
+
+    .hero{
+      width:100%;
+      border-radius: 14px;
+      overflow:hidden;
+      margin: 0 0 14px;
+      border: 1px solid rgba(75,0,130,.12);
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    }
+    .hero img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    h1{
+      margin: 10px 0 6px;
+      color: var(--purple);
+      letter-spacing: 1px;
+      font-size: 28px;
+    }
+    h2{
+      margin: 0 0 14px;
+      font-weight: 700;
+      color: var(--purple2);
+      font-size: 16px;
+      line-height: 1.3;
+    }
+
+    .welcome{
+      margin: 10px auto 18px;
+      max-width: 620px;
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: rgba(27,16,38,.92);
+    }
+
+    .button{
+      display:block;
+      width:100%;
+      max-width: 520px;
+      margin: 10px auto;
+      padding: 14px 16px;
+      text-decoration:none;
+      border-radius: 12px;
+      font-weight: 800;
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+      border: 1px solid rgba(0,0,0,.06);
+      will-change: transform;
+    }
+    .button:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+    .button:active{ transform: translateY(0); }
+
+    .event{ background: var(--purple); color: var(--white); }
+    .selar{ background: var(--gold); color: #2b1c00; }
+    .amazon{ background: #111827; color: var(--white); }
+    .photos{ background: var(--purple2); color: var(--white); }
+
+    .gift-box{
+      text-align:left;
+      max-width: 520px;
+      margin: 16px auto 10px;
+      padding: 16px 16px 14px;
+      background: rgba(255,255,255,.98);
+      border-radius: 14px;
+      border: 1px solid rgba(75,0,130,.14);
+      box-shadow: 0 12px 26px rgba(0,0,0,.10);
+    }
+    .gift-box h3{
+      margin: 0 0 10px;
+      color: var(--purple);
+      font-size: 16px;
+    }
+    .gift-box p{
+      margin: 6px 0;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .acct-row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(75,0,130,.18);
+    }
+
+    .acct-number{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-weight: 900;
+      color: #2b1c00;
+      background: rgba(212,175,55,.18);
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(212,175,55,.35);
+      user-select: all;
+    }
+
+    .copy-btn{
+      cursor:pointer;
+      border:none;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-weight: 900;
+      background: var(--gold);
+      color:#2b1c00;
+      box-shadow: 0 10px 20px rgba(0,0,0,.10);
+      transition: transform .12s ease, filter .12s ease;
+      white-space:nowrap;
+    }
+    .copy-btn:hover{ transform: translateY(-2px); filter: brightness(1.03); }
+    .copy-btn:active{ transform: translateY(0); }
+
+    footer{
+      margin-top: 14px;
+      font-size: 12.5px;
+      color: rgba(27,16,38,.75);
+    }
+
+    /* Toast (auto thank-you message) */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(27,16,38,.92);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 12px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.25);
+      font-size: 13px;
+      max-width: min(680px, 92vw);
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+  </style>
 </head>
+
 <body>
+  <div class="sparkle"></div>
 
-<div class="container">
+  <div class="container">
+    <!-- HERO IMAGE: upload to repo as assets/hero.jpg -->
+    <div class="hero">
+      <img src="assets/hero.jpg" alt="Golden Jubilee & Legacy Celebration - Josh Adeyemi">
+    </div>
+
     <h1>LEGACY ACCESS</h1>
-    <h2>Golden Jubilee & Legacy Celebration<br>Josh Adeyemi</h2>
+    <h2>Golden Jubilee &amp; Legacy Celebration<br>Josh Adeyemi</h2>
 
-    <a class="button event" href="https://drive.google.com/file/d/1yTep6UiHNKflwXPEPCRUcNNdKa2qagxY/view?usp=sharing" target="_blank">
-        📋 View Event Flow
+    <p class="welcome">
+      Welcome! 🎉 Please use the buttons below to view the event flow, access event pictures,
+      and purchase <em>Where Grace Took Root</em>. Thank you for celebrating this milestone with me.
+    </p>
+
+    <a class="button event" href="https://drive.google.com/file/d/1yTep6UiHNKflwXPEPCRUcNNdKa2qagxY/view?usp=sharing" target="_blank" rel="noopener">
+      🗂️ View Event Flow
     </a>
 
-    <a class="button selar" href="https://selar.com/d642661j7q" target="_blank">
-        📘 Buy on Selar
+    <a class="button selar" href="https://selar.com/d642661j7q" target="_blank" rel="noopener">
+      🛒 Buy Where Grace Took Root on Selar
     </a>
 
-    <a class="button amazon" href="https://www.amazon.com/dp/B0G4H42VCN" target="_blank">
-        📘 Buy on Amazon
+    <a class="button amazon" href="https://www.amazon.com/dp/B0G4H42VCN" target="_blank" rel="noopener">
+      🛍️ Buy Where Grace Took Root on Amazon
     </a>
+
+    <a class="button photos" href="https://photos.app.goo.gl/QHM65U4ZN9578qie7" target="_blank" rel="noopener">
+      📸 Event Pictures
+    </a>
+
+    <div class="gift-box">
+      <h3>🎁 Celebrate with a Birthday Gift</h3>
+      <p><strong>Bank:</strong> Moniepoint MFB</p>
+      <p><strong>Account Name:</strong> Adeyemi Oluwole Joshua</p>
+      <p><strong>Account Number:</strong> <span class="acct-number" id="acctNum">80343895904</span></p>
+
+      <div class="acct-row">
+        <button class="copy-btn" id="copyBtn">📋 Copy Account Number</button>
+        <span style="font-size:12.5px;color:rgba(27,16,38,.72);">Tap to copy &amp; paste in your banking app.</span>
+      </div>
+    </div>
 
     <footer>
-        Thank you for celebrating this milestone.
+      Thank you for celebrating this milestone.
     </footer>
-</div>
+  </div>
 
+  <div class="toast" id="toast">✅ Thank you for celebrating with us — Legacy Access is ready.</div>
+
+  <script>
+    // Copy-to-clipboard
+    const acct = document.getElementById("acctNum").textContent.trim();
+    const copyBtn = document.getElementById("copyBtn");
+    const toast = document.getElementById("toast");
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(()=>toast.classList.remove("show"), 3200);
+    }
+
+    copyBtn.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(acct);
+        showToast("📋 Account number copied: " + acct);
+      } catch(e){
+        // fallback
+        const t = document.createElement("textarea");
+        t.value = acct;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand("copy");
+        document.body.removeChild(t);
+        showToast("📋 Account number copied: " + acct);
+      }
+    });
+
+    // Auto thank-you message on page load
+    window.addEventListener("load", () => {
+      setTimeout(() => showToast("🎉 Welcome! Please use the buttons below — thank you for celebrating with Josh."), 650);
+    });
+  </script>
 </body>
 </html>
